@@ -1,214 +1,125 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainList : MonoBehaviour
 {
-	[SerializeField] private GameObject _lineObject;
+    [SerializeField] private GameObject _linePrefab;
+    [SerializeField] private Transform _lineParent;
+    [SerializeField] private float _lineHeight = 120f;
 
-	[SerializeField] private Transform _lineParent;
+    private List<LineScript> _lines = new List<LineScript>();
 
+    private void Start()
+    {
+        LoadAllLines();
+    }
 
-	[SerializeField] private GameObject[] _itemsLists;
-	public GameObject[] ItemsLists => _itemsLists;
+    private void LoadAllLines()
+    {
+        var data = SaveManager.Instance?.GetCurrentData();
+        if (data == null || data.LinesData == null) return;
 
-	[SerializeField] private GameObject[] _weaponsLists;
-	public GameObject[] WeaponsLists => _weaponsLists;
+        foreach (var lineData in data.LinesData)
+        {
+            CreateLineWithData(lineData);
+        }
+    }
 
+    // Метод для создания новой строки (без данных) - вызывается из UI
+    private void CreateLine()
+    {
+        CreateLineWithData(null);
+    }
 
-	private List<GameObject> _listLines = new List<GameObject>();
+    // Основной метод создания строки с данными
+    private void CreateLineWithData(LineData lineData = null)
+    {
+        var go = Instantiate(_linePrefab, _lineParent);
+        var lineScript = go.GetComponent<LineScript>();
 
-	private GameObject _currentItem;
+        int index = _lines.Count;
+        lineScript.SetLineIndex(index);
 
-	[SerializeField] private JSONManager _jSONManager;
+        if (lineData != null)
+        {
+            lineScript.LoadLineData(lineData);
+        }
 
-	private void ItemTaked(Sprite sprite)
-	{
-		CloseItems();
-		if (_currentItem != null)
-		{
-			_currentItem.GetComponent<Image>().sprite = sprite;
-		}
-		SaveData();
-	}
+        _lines.Add(lineScript);
+        UpdateAllLines();
+        SaveData();
+    }
 
-	public void CloseItems()
-	{
-		for (int i = 0; i < _itemsLists.Length; i++)
-		{
-			_itemsLists[i].SetActive(false);
-		}
-	}
-	private void OpenItems(int idItems, GameObject CurrentItem)
-	{
-		_currentItem = CurrentItem;
-		CloseItems();
-		_itemsLists[idItems].SetActive(true);
-		if (idItems == 0)
-		{
-			OnOpenWeapons();
-		}
-	}
-	private void OnOpenWeapons()
-	{
-		for (int i = 0; i < _weaponsLists.Length; i++)
-		{
-			_weaponsLists[i].SetActive(false);
-		}
-	}
+    private void RemoveLine(int index)
+    {
+        if (index < 0 || index >= _lines.Count) return;
 
+        var line = _lines[index];
+        _lines.RemoveAt(index);
+        Destroy(line.gameObject);
 
-	//--------------------Lines-----------------------
-	private void CreateNewLine()
-	{
-		GameObject go = Instantiate(_lineObject, _lineParent);
-		go.GetComponent<LineScript>().UpdateLine(_listLines.Count);
-		_listLines.Add(go);
+        UpdateAllLines();
+        SaveData();
+    }
 
-		UpdateContentHeight();
-	}
+    private void SwapLines(int index1, int index2)
+    {
+        if (index1 < 0 || index1 >= _lines.Count ||
+            index2 < 0 || index2 >= _lines.Count ||
+            index1 == index2) return;
 
-	private void RemoveLine(int idLine)
-	{
-		GameObject go = _listLines[idLine];
-		_listLines.Remove(_listLines[idLine]);
-		Destroy(go);
+        var temp = _lines[index1];
+        _lines[index1] = _lines[index2];
+        _lines[index2] = temp;
 
-		UpdateLines();
-		SyncHierarchyWithList();
-		UpdateContentHeight();
-	}
+        UpdateAllLines();
+        SaveData();
+    }
 
-	private void SwapListItems(int index1, int index2)
-	{
-		bool b = IsSwapedListItems(index1, index2);
+    private void UpdateAllLines()
+    {
+        for (int i = 0; i < _lines.Count; i++)
+        {
+            _lines[i].SetLineIndex(i);
+            _lines[i].transform.SetSiblingIndex(i);
+        }
+        UpdateContentHeight();
+    }
 
-		if (b)
-		{
-			UpdateLines();
-			SyncHierarchyWithList();
-			UpdateContentHeight();
-		} 
-	}
-	private bool IsSwapedListItems(int index1, int index2)
-	{
-		if (index1 < 0 || index1 >= _listLines.Count ||
-			index2 < 0 || index2 >= _listLines.Count ||
-			index1 == index2)
-		{
-			return false;
-		}
-		GameObject temp = _listLines[index1];
-		_listLines[index1] = _listLines[index2];
-		_listLines[index2] = temp;
+    private void UpdateContentHeight()
+    {
+        var rectTransform = _lineParent.GetComponent<RectTransform>();
+        if (rectTransform == null) return;
 
-		return true;
-	}
+        float totalHeight = (_lineHeight * _lines.Count) + 20f;
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, totalHeight);
+    }
 
-	private void UpdateLines()
-	{
-		for (int i = 0; i < _listLines.Count; i++)
-		{
-			_listLines[i].GetComponent<LineScript>().UpdateLine(i);
-		}
-		SaveData();
-		UpdateContentHeight();
-	}
-	private void SyncHierarchyWithList()
-	{
-		if (_lineParent == null) return;
+    private void SaveData()
+    {
+        var linesData = new LineData[_lines.Count];
+        for (int i = 0; i < _lines.Count; i++)
+        {
+            linesData[i] = _lines[i].GetLineData();
+        }
 
-		for (int i = 0; i < _listLines.Count; i++)
-		{
-			if (_listLines[i] != null)
-			{
-				_listLines[i].transform.SetSiblingIndex(i);
-			}
-		}
-	}
-	//------------------------------------------------
+        SaveManager.Instance?.UpdateLinesData(linesData);
+        SaveManager.Instance?.SaveData();
+    }
 
-	//-------------------Save-------------------------
+    private void OnEnable()
+    {
+        AllActions.CreateNewLine = CreateLine; // Теперь это Action без параметров
+        AllActions.RemoveLine = RemoveLine;
+        AllActions.SwapLines = SwapLines;
+        AllActions.SaveData = SaveData;
+    }
 
-	private void Start()
-	{
-		_jSONManager.LoadDefaultData();
-	}
-
-	private void OnApplicationQuit()
-	{
-		
-	}
-
-	public void SaveData()
-	{
-		Debug.Log(_listLines.Count);
-		_jSONManager.currentData.LinesData = new LineData[_listLines.Count];
-
-		for (int i = 0; i < _jSONManager.currentData.LinesData.Length; i++)
-		{
-			_jSONManager.currentData.LinesData[i] = _listLines[i].GetComponent<LineScript>().GetLineData();
-		}
-
-		_jSONManager.QuickSave();
-	}
-
-	public void LoadData(SavedData data)
-	{
-		for (int i = 0; i < _listLines.Count; i++)
-		{
-			Destroy(_listLines[i]);
-		}
-		_listLines.Clear();
-
-		if (data.LinesData != null)
-		{
-			for (int i = 0; i < data.LinesData.Length; i++)
-			{
-				CreateNewLine();
-				_listLines[i].GetComponent<LineScript>().SetLineData(data.LinesData[i]);
-			}
-		}
-		UpdateContentHeight();
-	}
-
-	//------------------------------------------------
-
-	public float itemHeight = 100f;
-
-	public void UpdateContentHeight()
-	{
-		//if (_lineParent.GetComponent<ScrollRect>() == null || _lineParent.GetComponent<ScrollRect>().content == null) return;
-
-		RectTransform content = _lineParent.GetComponent<RectTransform>();
-
-		float totalHeight = _lineParent.GetComponent<VerticalLayoutGroup>().padding.top * 2 + (itemHeight * (_listLines.Count + (_listLines.Count > 9? 1 : 0))) + (Mathf.Max(0, _listLines.Count - 1));
-		content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);
-	}
-
-
-	private void OnDisable()
-	{
-		AllActions.CreateNewLine = null;
-		AllActions.RemoveLine = null;
-
-		AllActions.OpenItems = null;
-		AllActions.ItemTaked = null;
-		AllActions.CloseItems = null;
-
-		AllActions.ListItemsSwap = null;
-
-	}
-	private void OnEnable()
-	{
-		AllActions.CreateNewLine = CreateNewLine;
-		AllActions.RemoveLine = RemoveLine;
-
-		AllActions.OpenItems = OpenItems;
-		AllActions.ItemTaked = ItemTaked;
-		AllActions.CloseItems = CloseItems;
-
-		AllActions.ListItemsSwap = SwapListItems;
-
-	}
+    private void OnDisable()
+    {
+        AllActions.CreateNewLine = null;
+        AllActions.RemoveLine = null;
+        AllActions.SwapLines = null;
+        AllActions.SaveData = null;
+    }
 }
