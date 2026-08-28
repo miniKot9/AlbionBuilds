@@ -1,0 +1,16 @@
+//Assets/Plugins/WebGL/DownloadPlugin.jslib
+mergeInto(LibraryManager.library, {
+    DownloadFileFromWebGL: function (arrayPtr, size, fileNamePtr) {
+        var bytes = new Uint8Array(HEAPU8.buffer, arrayPtr, size);
+        var fileName = UTF8ToString(fileNamePtr);
+        
+        var blob = new Blob([bytes], { type: "image/png" });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = fileName;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+});

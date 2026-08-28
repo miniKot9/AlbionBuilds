@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21545b84f739f3c4399137af153c8612, type: 3}
+  m_Name: 2 LeftHands
+  m_EditorClassIdentifier: 
+  Sprites:
+  - {fileID: 21300000, guid: 69f958cdcbe21d448a5cb5da5e3e4215, type: 3}
+  - {fileID: 21300000, guid: b77ac595d5d374c459c361cc01161307, type: 3}
+  - {fileID: 21300000, guid: 3cabecaba2caf444badb94529c536686, type: 3}
+  - {fileID: 21300000, guid: 1881a88ae12199844be82fe3ec6e0855, type: 3}
+  - {fileID: 21300000, guid: 570d4b62589e7e64bbaeb143fd5e1eb9, type: 3}
+  - {fileID: 21300000, guid: c4dddcf5cd607d84697b7772426c7337, type: 3}
+  - {fileID: 21300000, guid: cf86f52f0af2759478e2ecfaeedd8ef9, type: 3}
+  - {fileID: 21300000, guid: dea85ad4d216d50448d2a0880ef19801, type: 3}
+  - {fileID: 21300000, guid: be81fabdadfea59439d0be001d266ece, type: 3}
+  - {fileID: 21300000, guid: 4370b6067b2f36f42bb372968269eb88, type: 3}
+  - {fileID: 21300000, guid: 7b3dbecbded68084bab631f01c667d9e, type: 3}
+  - {fileID: 21300000, guid: a88b3860bb5c74d40952d7e8f2397313, type: 3}
+  - {fileID: 21300000, guid: f57181c7b71919f4dac69967d152fcaa, type: 3}
+  - {fileID: 21300000, guid: abfb3b41d5be9494ea85eda17235790d, type: 3}
+  - {fileID: 21300000, guid: d284dbf0c45d3ba4690708de50784dfc, type: 3}
+  - {fileID: 21300000, guid: a813cc7936f98bd488630783c15f219b, type: 3}
+  - {fileID: 21300000, guid: 05347830bf68d65418ae20fb1dcb5c73, type: 3}
+  - {fileID: 21300000, guid: 64460d004209a2e4e8e7cef9b0bab19f, type: 3}
+  - {fileID: 21300000, guid: c3b952c52c256694db240e3230794d5c, type: 3}
