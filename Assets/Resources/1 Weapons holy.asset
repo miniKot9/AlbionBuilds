@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21545b84f739f3c4399137af153c8612, type: 3}
-  m_Name: 1 Weapons 12
+  m_Name: 1 Weapons holy
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: e9c10610e62a6484a966a7b90e3d5765, type: 3}
+  - {fileID: 21300000, guid: 74ee6644575f6d14d8cff82b93dafc87, type: 3}
   - {fileID: 21300000, guid: a9c9bea2ec3dd094899ab3371f4b4e0f, type: 3}
-  - {fileID: 21300000, guid: 2036fd490ee951d4f86e30c3c6e76a13, type: 3}
+  - {fileID: 21300000, guid: e9c10610e62a6484a966a7b90e3d5765, type: 3}
+  - {fileID: 21300000, guid: 3e10cd6d2f8f208449fa2d6b09a05e90, type: 3}
   - {fileID: 21300000, guid: 79e686bb59d037047aa39c62b669f7d0, type: 3}
   - {fileID: 21300000, guid: cb3003a8bcf05be489ea1e7ecef50a07, type: 3}
-  - {fileID: 21300000, guid: 74ee6644575f6d14d8cff82b93dafc87, type: 3}
   - {fileID: 21300000, guid: e6cf071cadb1fbe49943b550269fa603, type: 3}
-  - {fileID: 21300000, guid: 3e10cd6d2f8f208449fa2d6b09a05e90, type: 3}
+  - {fileID: 21300000, guid: 2036fd490ee951d4f86e30c3c6e76a13, type: 3}

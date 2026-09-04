@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21545b84f739f3c4399137af153c8612, type: 3}
-  m_Name: 1 Weapons 14
+  m_Name: 1 Weapons arcane
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: e8b873c906d42164abe175d7a38c0d7b, type: 3}
+  - {fileID: 21300000, guid: f67cc3122cf0a8743b099c49a679fc72, type: 3}
   - {fileID: 21300000, guid: 01402681e3193e4479540beb2a4a3d0d, type: 3}
-  - {fileID: 21300000, guid: 48653ccc05a1e0444928a2bf89a8cb62, type: 3}
+  - {fileID: 21300000, guid: 23a833c1eec71e748889d0bc10ac7383, type: 3}
+  - {fileID: 21300000, guid: 82476016e6f1f1b46b436a819c0229ca, type: 3}
   - {fileID: 21300000, guid: 72b1f5c1a8965334491958363655e788, type: 3}
   - {fileID: 21300000, guid: 82bf7c552ec5adf4487b0cd4f4035097, type: 3}
-  - {fileID: 21300000, guid: 23a833c1eec71e748889d0bc10ac7383, type: 3}
-  - {fileID: 21300000, guid: f67cc3122cf0a8743b099c49a679fc72, type: 3}
-  - {fileID: 21300000, guid: 82476016e6f1f1b46b436a819c0229ca, type: 3}
+  - {fileID: 21300000, guid: e8b873c906d42164abe175d7a38c0d7b, type: 3}
+  - {fileID: 21300000, guid: 48653ccc05a1e0444928a2bf89a8cb62, type: 3}

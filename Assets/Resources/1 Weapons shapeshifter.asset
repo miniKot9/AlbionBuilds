@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21545b84f739f3c4399137af153c8612, type: 3}
-  m_Name: 1 Weapons 10
+  m_Name: 1 Weapons shapeshifter
   m_EditorClassIdentifier: 
   Sprites:
-  - {fileID: 21300000, guid: 441794ad23474f342aadd1984c1dcd8e, type: 3}
-  - {fileID: 21300000, guid: 4e26aad1a93e6a246b902067c5c6c2e9, type: 3}
-  - {fileID: 21300000, guid: 04352bd56b8e0644ebcbdac9db934eeb, type: 3}
-  - {fileID: 21300000, guid: 60ac795485ad39149a0d710e7eef7e83, type: 3}
-  - {fileID: 21300000, guid: 7b32126c25e76794baa1f374b714561c, type: 3}
   - {fileID: 21300000, guid: 85b878e1eb22ab44396eab95d4686712, type: 3}
   - {fileID: 21300000, guid: ac369ab3a7b5812439a5902b5a1db0ac, type: 3}
   - {fileID: 21300000, guid: 3a61dab70944e64469ecee5eba8ebe74, type: 3}
+  - {fileID: 21300000, guid: 7b32126c25e76794baa1f374b714561c, type: 3}
+  - {fileID: 21300000, guid: 04352bd56b8e0644ebcbdac9db934eeb, type: 3}
+  - {fileID: 21300000, guid: 60ac795485ad39149a0d710e7eef7e83, type: 3}
+  - {fileID: 21300000, guid: 441794ad23474f342aadd1984c1dcd8e, type: 3}
+  - {fileID: 21300000, guid: 4e26aad1a93e6a246b902067c5c6c2e9, type: 3}

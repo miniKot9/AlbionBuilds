@@ -19,6 +19,12 @@ public class WebGLScreenshotSaver : MonoBehaviour
         StartCoroutine(CaptureRoutine());
     }
 
+    [SerializeField] private string _boostyUrl = "https://boosty.to/minikot9";
+    public void OpenBoosty()
+	{
+        Application.OpenURL(_boostyUrl);
+    }
+
     private IEnumerator CaptureRoutine()
     {
         // 2. Запоминаем исходное место и настройки ScrollView
